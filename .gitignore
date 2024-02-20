@@ -1,1 +1,4 @@
-./mqtt5broker/config/pwfile
+# .gitignore file
+
+mqtt5broker/config/pwfile
+
