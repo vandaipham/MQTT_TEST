@@ -43,8 +43,8 @@ def publish(client):
     while True:
         time.sleep(5)
         t = random.randint(0, 100)
-        #msg = f"messages: {msg_count}"
-        result = client.publish(temperature, t)
+        msg = f"({time.time()},{t})"
+        result = client.publish(temperature, msg)
         # result: [0, 1]
         status = result[0]
         if status == 0:
@@ -53,8 +53,8 @@ def publish(client):
             print(f"Failed to send message to topic {temperature}")
 
         h = random.randint(0, 100)
-        #msg = f"messages: {msg_count}"
-        result = client.publish(humidity, h)
+        msg = f"({time.time()},{h})"
+        result = client.publish(humidity, msg)
         # result: [0, 1]
         status = result[0]
         if status == 0:
@@ -63,8 +63,8 @@ def publish(client):
             print(f"Failed to send message to topic {humidity}")
 
         l = random.randint(0, 1000)
-        #msg = f"messages: {msg_count}"
-        result = client.publish(light, l)
+        msg = f"({time.time()},{l})"
+        result = client.publish(light, msg)
         # result: [0, 1]
         status = result[0]
         if status == 0:
@@ -72,7 +72,7 @@ def publish(client):
         else:
             print(f"Failed to send message to topic {light}")
 
-client = mqtt.Client(client_id="clientid", protocol=mqtt.MQTTv311, clean_session=True)
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 client.on_connect = on_connect
 client.on_message = on_message
 client.on_subscribe = on_subscribe
